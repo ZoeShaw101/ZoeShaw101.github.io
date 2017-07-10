@@ -99,7 +99,7 @@
 关键思想：迭代增强 =&amp;gt; 将一系列弱学习器，通过改变训练数据集的概率分布（权值）来迭代生成强学习器的方法。
 算法流程：
   12345678 1.初始化样本权值分布：均匀的权值分布 2.利用初始样本分布得到初始基分类器 3.迭代更新，直到达到训练轮次    计算当前分类器在数据集上的分类错误率；    =&amp;gt; 当前分类器权值要使分类错误率最小（最小化指数损失函数）：">
-<meta property="og:updated_time" content="2017-07-10T03:51:23.000Z">
+<meta property="og:updated_time" content="2017-07-10T06:52:37.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习算法之集成学习boosting">
 <meta name="twitter:description" content="一、Adaboost
@@ -347,7 +347,7 @@
 <p>更新训练数据集的权值分布，能使得被错误分类的数据在下一轮能得到更大的关注。<br>这里给出的算法的损失函数是指数函数，是针对分类问题；对于回归问题，可使用平方误差损失函数。<br>整个优化过程是前向分布迭代与开发模型的结合。</p>
 </li>
 </ul>
-<h1 id="二、boosting-tree"><a href="#二、boosting-tree" class="headerlink" title="二、boosting tree"></a>二、boosting tree</h1><p><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script><br>  基学习器是决策树。可使用分类树或回归树（只是损失函数不同）</p>
+<h1 id="二、boosting-tree"><a href="#二、boosting-tree" class="headerlink" title="二、boosting tree"></a>二、boosting tree</h1><p><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"><br></script><br>  基学习器是决策树。可使用分类树或回归树（只是损失函数不同）</p>
 <ul>
 <li>基本思想：对于回归树，损失函数为平方函数，损失其实就变为数据的残差。实质上是利用模型拟合残差。</li>
 <li>算法流程：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">1.初始化回归树模型</div><div class="line">2.迭代更新，直到达到训练轮次</div><div class="line">   计算残差</div><div class="line">   =&gt; 拟合残差学习一个回归树</div><div class="line">   =&gt; 更新当前回归树模型</div><div class="line">3.最后得到集成回归树模型</div></pre></td></tr></table></figure>
@@ -370,10 +370,9 @@
 </li>
 </ul>
 <p>模型可以表示为：</p>
-<p><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script><br>$$\hat{y}<em>i = \sum</em>{k=1}^K f_k(x_i), f_k \in \mathcal{F}$$</p>
+<p><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"><br></script><br>$$\hat{y}<em>i = \sum</em>{k=1}^K f_k(x_i), f_k \in \mathcal{F}$$</p>
 <h1 id="四、XGBoost：Extreme-Gradient-Boosting"><a href="#四、XGBoost：Extreme-Gradient-Boosting" class="headerlink" title="四、XGBoost：Extreme Gradient Boosting"></a>四、XGBoost：Extreme Gradient Boosting</h1><p>由以上介绍可看出随机森里和boosting tree的模型几乎没有差别，但两者的区别在于train的方法。</p>
-<h2 id="1-训练过程"><a href="#1-训练过程" class="headerlink" title="1.训练过程"></a>1.训练过程</h2><p>所有监督学习的train的过程都可以看作是优化目标函数的过程。目标函数包括损失函数和正则化项。</p>
-<p><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script><br>$$\text{obj}(\theta) = \sum_i^n l(y_i, \hat{y}<em>i) + \sum</em>{k=1}^K \Omega(f_k)$$<br>迭代更新参数以最小化目标函数：那么boosting tree需要学习的参数是什么呢？<br>训练的过程可以视为每次加入一个新的树并且修正所学到的模型。xgboost算法的步骤和GB基本相同，都是首先初始化为一个常数，gb是根据一阶导数ri，xgboost是根据一阶导数gi和二阶导数hi，迭代生成基学习器，相加更新学习器。</p>
+<h2 id="1-训练过程"><a href="#1-训练过程" class="headerlink" title="1.训练过程"></a>1.训练过程</h2><p>所有监督学习的train的过程都可以看作是优化目标函数的过程。目标函数包括损失函数和正则化项。<br>$$\text{obj}(\theta) = \sum_i^n l(y_i, \hat{y}<em>i) + \sum</em>{k=1}^K \Omega(f_k)$$<br>迭代更新参数以最小化目标函数：那么boosting tree需要学习的参数是什么呢？<br>训练的过程可以视为每次加入一个新的树并且修正所学到的模型。xgboost算法的步骤和GB基本相同，都是首先初始化为一个常数，gb是根据一阶导数ri，xgboost是根据一阶导数gi和二阶导数hi，迭代生成基学习器，相加更新学习器。</p>
 <p>##2.XGBoost的优化<br>XGBoost之所以成为数据挖掘中常用到的算法，因为他在实现时进行了很多优化处理。</p>
 <ul>
 <li>xgboost考虑了训练数据为稀疏值的情况，可以为缺失值或者指定的值指定分支的默认方向，这能大大提升算法的效率</li>
