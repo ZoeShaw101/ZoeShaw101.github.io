@@ -260,6 +260,136 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/21/Tensorflow学习笔记：Session-Variable-Placeholder/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zoe Shaw">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shaw's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/07/21/Tensorflow学习笔记：Session-Variable-Placeholder/" itemprop="url">
+                  Tensorflow学习笔记：Session,Variable,Placeholder
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-21T15:19:00+08:00">
+                2017-07-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Tensorflow是一个开源的深度学习框架，它的基本计算流程是需要首先定义好计算图，然后放入数据（张量）进行初始化，再使用会话步骤是数据沿着计算图流通，最后得到我们需要的计算结果。<br>本文主要讲解Tensorflow最基本的几个数据类型及其使用。</p>
+<h1 id="1-Session-会话控制"><a href="#1-Session-会话控制" class="headerlink" title="1.Session 会话控制"></a>1.Session 会话控制</h1><p>session 是Tensorflow为了控制,和输出文件的执行的语句.创建了数据或变量并没有执行任何计算操作，只有使用sess.run()语句，才能进行运算。<br>代码解释：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#encoding:utf-8</div><div class="line">import tensorflow as tf</div><div class="line">matrix1 = tf.constant([[3,3]])</div><div class="line">matrix2 = tf.constant([[2],</div><div class="line">                       [2]])</div><div class="line">product = tf.matmul(matrix1,matrix2)</div></pre></td></tr></table></figure></p>
+<p>这里并没有执行乘法操作哦，只是构建好了这个计算图的步骤。<br>接下来需要打开会话session，这里有两种方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">方法一：</div><div class="line">sess = tf.Session()</div><div class="line">result = sess.run(product)</div><div class="line">print(result)</div><div class="line">sess.close()</div><div class="line"></div><div class="line">方法二：</div><div class="line">with tf.Session() as sess:</div><div class="line">    result2 = sess.run(product)</div><div class="line">    print(result2)</div></pre></td></tr></table></figure></p>
+<p>#2. Variable 变量<br>在Tensorflow中，变量和常量是区分开的，就是说某个数定义了是变量，它才是变量。<br>变量是使用tf.Variable()，常量是使用tf.constant()</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">#encoding:utf-8</div><div class="line">import tensorflow as tf</div><div class="line">import numpy as np</div><div class="line"></div><div class="line">state = tf.Variable(0, name = &apos;counter&apos;)</div><div class="line">one = tf.constant(1)</div><div class="line">new_value = tf.add(state, one) #注意！这步并没有直接计算值！</div><div class="line">update = tf.assign(state, new_value)</div><div class="line">#定义了变量还没激活，只有定义了session，使用session.run()才激活变量，才能计算值！</div><div class="line">init = tf.global_variables_initializer() #定义了变量就一定要初始化！</div><div class="line">with tf.Session() as sess:</div><div class="line">    sess.run(init)</div><div class="line">    for _ in range(3):</div><div class="line">        sess.run(state)</div><div class="line">        print sess.run(state)</div></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：直接 print(state) 不起作用！！<br>一定要把 sess 的指针指向 state 再进行 print 才能得到想要的结果！</p>
+</blockquote>
+<p>#3. Placeholder 传入值<br>placeholder 是 Tensorflow 中的占位符，暂时储存变量.<br>Tensorflow 如果想要从外部传入data, 那就需要用到 <strong><em>tf.placeholder()</em></strong>, 然后以这种形式传输数据 <strong><em>sess.run(…, feed_dict={input: ..})</em></strong>.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">import tensorflow as tf</div><div class="line"></div><div class="line">#在 Tensorflow 中需要定义 placeholder 的 type ，一般为 float32 形式</div><div class="line">input1 = tf.placeholder(tf.float32)</div><div class="line">input2 = tf.placeholder(tf.float32)</div><div class="line"></div><div class="line"># mul = multiply 是将input1和input2 做乘法运算，并输出为 output</div><div class="line">ouput = tf.multiply(input1, input2)</div></pre></td></tr></table></figure></p>
+<p>接下来, 传值的工作交给了 sess.run() , 需要传入的值放在了feed_dict={} 并一一对应每一个 input, placeholder 与 feed_dict={} 是绑定在一起出现的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">with tf.Session() as sess:</div><div class="line">    print(sess.run(ouput, feed_dict=&#123;input1: [7.], input2: [2.]&#125;))</div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/06/机器学习算法之集成学习boosting/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -603,7 +733,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -616,7 +746,7 @@
             
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">tags</span>
               
             </div>
