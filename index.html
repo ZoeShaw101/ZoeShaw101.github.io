@@ -260,6 +260,144 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/03/使用CNN进行网站文本分类/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zoe Shaw">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shaw's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/09/03/使用CNN进行网站文本分类/" itemprop="url">
+                  使用CNN进行网站文本分类
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-03T20:59:08+08:00">
+                2017-09-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>本文主要讲述一些自然语言处理的基础知识，以及使用如何CNN模型对从网上爬取下来的网站网页文本进行分类。</p>
+<h1 id="Wod2Vec"><a href="#Wod2Vec" class="headerlink" title="Wod2Vec"></a>Wod2Vec</h1><p>词向量技术就是将词转化成向量形式，因为我们的分类器最后处理的都是向量，所以进行自然语言的预处理往往就是需要进行向量化。在sklearn库中使用svm对文本分类之前可以通过使用 <strong><em>CountVectorizer()</em></strong> 和 <strong><em>TfidfTransformer()</em></strong> 来向量化。这两个函数所进行的操作就是最基本的利用词频和反文档词频特征进行向量化，但当我们的词量很大的时候，这样构造出来的矩阵就会非常大（也许它内部进行了矩阵压缩等优化），并且，这样最基本的词语特征并不能反映更高级的语义特征，所以，我们需要寻求更有效的向量方法。</p>
+<p>谷歌推出的<a href="https://zh.wikipedia.org/wiki/Word2vec" target="_blank" rel="external">Word2Vec</a>技术，就是很流行的方法。在给定一个中心词的情况下，Word2Vec 通过最大化上下文单词的对数概率并通过随机梯度下降（SGD）来修改向量，试图找到不同词的向量表征。因此它可以展现出不同词向量之间的线性关系，也就是通过神经网络的映射，可以扑捉到一些不同的语法和语义概念。</p>
+<h1 id="CNN文本分类"><a href="#CNN文本分类" class="headerlink" title="CNN文本分类"></a>CNN文本分类</h1><p>使用CNN进行文本分类，是因为CNN的卷积操作能够提取一些重要的文本特征。实现主要参考了<a href="https://arxiv.org/abs/1408.5882" target="_blank" rel="external"> Convolutional Neural Networks for Sentence Classification.</a>这篇文章。</p>
+<h2 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h2><p>对于从网页上爬下来的文本首相要进行正文提取、去除特殊字符、分词、词语连接等操作。然后要进行文本的padding，也就是对齐，将向量统一维度。再放入Word2Vec模型里进行训练，然后得到词典，也就得到了每个词语的向量映射。<br>函数data_helper()就是帮助前期处理数据的。包括数据的读入，我们需要分的类别是12类，所以将label表示为一个12维的向量，对应的data是哪个类就将这个类置1，其余为0。</p>
+<h2 id="CNN模型"><a href="#CNN模型" class="headerlink" title="CNN模型"></a>CNN模型</h2><p>这个模型只包含了一层卷积层和一个池化层。卷积有三种长度分别为[3, 4, 5]。<br>所以卷积核的大小应该是一个三维的向量：[卷积核大小， 嵌入的维度大小，卷积核的数量]，但是tensorflow里面规定的特卷积核大小还有个通道数，由于这里不是图像而是文本，就将通道数置为1。<br>然后再通过一个非线性函数、池化操作得到输出。最后会有一个reshape来将所有的特征连接在一起并延展成一维的向量，用于之后的softmax计算概率。</p>
+<p>模型核心的代码入如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">ooled_outputs = []</div><div class="line">for i, filter_size in enumerate(filter_sizes):</div><div class="line">    with tf.name_scope(&quot;conv-maxpool-%s&quot; % filter_size):</div><div class="line">        # 卷积层</div><div class="line">        filter_shape = [filter_size, embedding_size, 1, num_filters]</div><div class="line">        W = tf.Variable(tf.truncated_normal(filter_shape, stddev=0.1), name=&quot;W&quot;)</div><div class="line">        b = tf.Variable(tf.constant(0.1, shape=[num_filters]), name=&quot;b&quot;)</div><div class="line">        conv = tf.nn.conv2d(</div><div class="line">            self.embedded_chars_expanded,</div><div class="line">            W,</div><div class="line">            strides=[1, 1, 1, 1],</div><div class="line">            padding=&quot;VALID&quot;,</div><div class="line">            name=&quot;conv&quot;)</div><div class="line">        # 通过非线性函数</div><div class="line">        h = tf.nn.relu(tf.nn.bias_add(conv, b), name=&quot;relu&quot;)</div><div class="line">        # 池化操作</div><div class="line">        pooled = tf.nn.max_pool(</div><div class="line">            h,</div><div class="line">            ksize=[1, sequence_length - filter_size + 1, 1, 1],</div><div class="line">            strides=[1, 1, 1, 1],</div><div class="line">            padding=&apos;VALID&apos;,</div><div class="line">            name=&quot;pool&quot;)</div><div class="line">        pooled_outputs.append(pooled)</div><div class="line"></div><div class="line"># 连接所有pooled features</div><div class="line">num_filters_total = num_filters * len(filter_sizes)</div><div class="line">self.h_pool = tf.concat(3, pooled_outputs)</div><div class="line">self.h_pool_flat = tf.reshape(self.h_pool, [-1, num_filters_total])</div></pre></td></tr></table></figure>
+<h2 id="防止过拟合"><a href="#防止过拟合" class="headerlink" title="防止过拟合"></a>防止过拟合</h2><p>为防止过拟合，可以加入正则化，和dropout等措施。dropout的概率默认值设为0.5，实际需要看训练过程的bias and variance trade-off来进行调整。正则化选择L2正则，因为模型本来并不太复杂，默认值为0，看实际情况进行调整。</p>
+<h1 id="实际训练中遇到的问题"><a href="#实际训练中遇到的问题" class="headerlink" title="实际训练中遇到的问题"></a>实际训练中遇到的问题</h1><h2 id="Memory-Error"><a href="#Memory-Error" class="headerlink" title="Memory Error"></a>Memory Error</h2><p>开始时我将一共十多万条文本数据全部进行向量化后的向量转化成numpy形式的数组，执行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">x_test = np.array(all_vectors)</div></pre></td></tr></table></figure></p>
+<p>这一步会出现内存错误，st上说是因为 <strong><em>np.rarray</em></strong> 方法将数组整个一次性复制到内存，可能因为内存不够，但是我是放在服务器上跑的，有几十G的内存，x_test的大小应该是 <strong>文本条数 x 最大文本长度 x embedding_size</strong> 。检查之前的数据处理步骤，发现分词是直接单个字进行分词的，最大文本长度就会非常大，所以最后x_test向量会很大。之后我改成了基于词语的分词，然后还是发现内存错误。<br>st上说使用 <strong><em>np.asarray</em></strong> 方法，不会将数据一次性复制进内存。试了下就没有出现内存错误了。所以最后原因应该是因为文本长度太大了，embedding_size 这个值设置的是128，最后三个向量相乘的得到的矩阵维度会很大。<br>另外一个解决办法是在文本padding过程中需要将长度不够最大长度的文本补齐，所以万一短文本很多，最后的矩阵其实会有很多0值，是个很稀疏的矩阵，所以可以考虑使用稀疏矩阵存储的方式。</p>
+<h2 id="过拟合严重"><a href="#过拟合严重" class="headerlink" title="过拟合严重"></a>过拟合严重</h2><p>训练时将训练数据进行1:0.8的划分，一部分训练，一部分验证。训练集模型正确率可以达到90%多，并且在验证集上表现和训练集曲线接近，相差不大。但是放到真实的测试数据（另一批没有标签的数据）上表现不是很好。最后原因可能是因为模型过拟合严重，因为训练数据是使用关键词匹配出来的（网页的类别和网页内容中的关键词），数据质量非常好。但是测试时拿的数据是另一批从网上爬去下来的数据，良莠不齐，模型表现并不理想。<br>尝试过提高dropout的概率，加入正则化等措施，效果不明显。应该是数据集的影响比较大。</p>
+<h2 id="在不同类别上表现差异较大"><a href="#在不同类别上表现差异较大" class="headerlink" title="在不同类别上表现差异较大"></a>在不同类别上表现差异较大</h2><p>最后训练得到的模型在另一批数据上进行测试的时候发现12种类别，在不同类别上表现差异较大，并且并不是所有类别都能分出来。<br>最后发现原因是训练集里没有确保样本均衡，不同类别样本数相差较大。改进后在测试数据集上的不同类别上的变现更好。并且十二类都完全分的出来。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>本文记录了在实现CNN文本分类中遇到的一些问题，及解决方法。改进之处是还可以改进模型结构，提高泛化能力，比如可以进行数据增强(data augmentation)等措施，但是在自然语言领域data augmentation的方法比较困难，之后可以尝试一下。</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li><a href="http://www.wildml.com/2015/12/implementing-a-cnn-for-text-classification-in-tensorflow/" target="_blank" rel="external">Implementing a CNN for Text Classification in TensorFlow</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/24758451" target="_blank" rel="external">用CNN做句子分类：CNN Sentence Classification (with Theano code)</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/21/Tensorflow学习笔记/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -744,7 +882,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
