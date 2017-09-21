@@ -260,6 +260,170 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/21/计算语言学基础－读书笔记（一）词法分析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zoe Shaw">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shaw's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/09/21/计算语言学基础－读书笔记（一）词法分析/" itemprop="url">
+                  计算语言学基础－读书笔记（一）词法分析
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-21T10:20:41+08:00">
+                2017-09-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="正则表达式与自动机"><a href="#正则表达式与自动机" class="headerlink" title="正则表达式与自动机"></a>正则表达式与自动机</h1><h2 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h2><h3 id="1-常用符号"><a href="#1-常用符号" class="headerlink" title="1.常用符号"></a>1.常用符号</h3><ul>
+<li>/[]/ : 用来匹配任意的字符</li>
+<li>/[-]/ : 中的-用来表示字符的范围</li>
+<li>/[^]/ : 中的^用来表示匹配除去某模式的串（仅当^在左括号[的第一个出现时才能当作除去匹配的作用）</li>
+<li>/?/ question-mark: 匹配零个或一个前面的字符，意思是?前面的那个字符是可选的（即可要可不要）</li>
+<li>/<em>/ 星号模式：用来匹配零个或多个前面的字符。当字符直邮一个时。比如a</em>，还可以匹配完全不包含a的仁义字符串的起始处，所以当要匹配一个或多个a是，应该用aa<em>；ab</em>表示可以匹配一个或多个a或b</li>
+<li>/+/ 加号模式：匹配一个或多个前面的字符；与？和*的区别是+不会匹配零个</li>
+<li><p>/./ 句点模式：匹配任意的字符。和<em>组合表示匹配任意的字符串 /ab.</em>ab/</p>
+<p><strong><em>anchors</em></strong>：<br>anchors是特殊的字符串来匹配字符串中的特定模式</p>
+</li>
+<li><p>/^$/ : ^表示在行的开始处进行匹配，$表示在行的末尾处进行匹配</p>
+</li>
+<li>/\b/ : 用来匹配单词边界，它通常用来避免意外地匹配到在其他单词内的某个单词. ；/\B/ : 用来匹配非单词边界</li>
+</ul>
+<h3 id="2-disjunction-grouping-and-precedence"><a href="#2-disjunction-grouping-and-precedence" class="headerlink" title="2.disjunction,grouping and precedence"></a>2.disjunction,grouping and precedence</h3><ul>
+<li>/cat|dog/: 使用｜来表示匹配左边的模式或者右边的模式</li>
+<li>/()/ : 使用()来确定求值的顺序</li>
+</ul>
+<h3 id="3-表达式优先级："><a href="#3-表达式优先级：" class="headerlink" title="3.表达式优先级："></a>3.表达式优先级：</h3><p>() &gt; +?{} &gt; ^$ &gt; |</p>
+<h3 id="4-高级操作"><a href="#4-高级操作" class="headerlink" title="4.高级操作"></a>4.高级操作</h3><ul>
+<li>\d : [0–9]</li>
+<li>\D : [^0-9]</li>
+<li>\w : [a-zA-Z0-9_]</li>
+<li>\W : [^\w]</li>
+<li>\s : [\r\t\n\f]</li>
+<li>\S : [^\s]</li>
+</ul>
+<h2 id="自动机"><a href="#自动机" class="headerlink" title="自动机"></a>自动机</h2><h3 id="1-概念"><a href="#1-概念" class="headerlink" title="1.概念"></a>1.概念</h3><p><strong><em>确定性有限自动机 DFSA</em></strong>:</p>
+<ul>
+<li>有限状态集合S；</li>
+<li>有限输入符号的字母表Σ；</li>
+<li>状态转移函数move；</li>
+<li>开始状态 s0；</li>
+<li>结束状态集合F，F ∈ S。 自动机初始状态为s0，逐一读入输入字符串中的每一个字母，根据当前状态、读入的字母， 由状态转移函数move控制进入下一个状态。如果输入字符串读入结束时自动机的状态属于结束状态集合F， 则说明该自动机接受该字符串，否则为不接受。</li>
+</ul>
+<p><strong><em>不确定性有限自动机 NFSA</em></strong>: 存在空的输入或者每个状态的转移存在多种路径</p>
+<h3 id="2-算法"><a href="#2-算法" class="headerlink" title="2.算法"></a>2.算法</h3><p>不确定性FSA的解决方法：</p>
+<ul>
+<li>Backup</li>
+<li>Look-ahead</li>
+<li>Parallelism</li>
+</ul>
+<p>Backup方法：NFSA算法：</p>
+<p>状态空间搜索算法：就是将所有可能进行转移的状态存下来，选择一条路径结果reject时就回溯回分叉路口来选取另一条路径。使得搜索的状态有序，可以使用深搜或宽搜算法。但是这两种算法都有弊端：当状态空间无尽时搜索就不会停止，而且当状态空间很你很大时，会耗费大量的存储空间。更复杂高效的算法可以使用动态规划或者A*算法。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/16/特征编码之Likelihood-Encoding/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1016,7 +1180,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1029,7 +1193,7 @@
             
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">tags</span>
               
             </div>

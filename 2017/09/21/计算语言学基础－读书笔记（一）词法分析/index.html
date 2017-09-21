@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="随笔," />
+  <meta name="keywords" content="自然语言处理," />
 
 
 
@@ -87,25 +87,31 @@
 
 
 
-<meta name="description" content="“生活以线路／织一张网／每个人择食而亡”                                           ——— 陈鸿宇 《来信》
-
-最初听到这句歌词时，我脑海中就浮现了《没有人知道的大冒险》游戏中的西西弗斯推巨石的场景。永无休止地毫无意义的劳作，和耳旁呼啸而过的山谷的风声，西西弗斯却自认为发现了意义，他觉得自己是幸福的。
-这个故事出自加缪的The Myth of Sisyp">
+<meta name="description" content="正则表达式与自动机正则表达式1.常用符号
+/[]/ : 用来匹配任意的字符
+/[-]/ : 中的-用来表示字符的范围
+/[^]/ : 中的^用来表示匹配除去某模式的串（仅当^在左括号[的第一个出现时才能当作除去匹配的作用）
+/?/ question-mark: 匹配零个或一个前面的字符，意思是?前面的那个字符是可选的（即可要可不要）
+// 星号模式：用来匹配零个或多个前面的字符。当字符直邮一个时。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="每个人择食而亡">
-<meta property="og:url" content="http://yoursite.com/2017/04/26/hello-world/index.html">
+<meta property="og:title" content="计算语言学基础－读书笔记（一）词法分析">
+<meta property="og:url" content="http://yoursite.com/2017/09/21/计算语言学基础－读书笔记（一）词法分析/index.html">
 <meta property="og:site_name" content="Shaw's Blog">
-<meta property="og:description" content="“生活以线路／织一张网／每个人择食而亡”                                           ——— 陈鸿宇 《来信》
-
-最初听到这句歌词时，我脑海中就浮现了《没有人知道的大冒险》游戏中的西西弗斯推巨石的场景。永无休止地毫无意义的劳作，和耳旁呼啸而过的山谷的风声，西西弗斯却自认为发现了意义，他觉得自己是幸福的。
-这个故事出自加缪的The Myth of Sisyp">
-<meta property="og:updated_time" content="2017-04-27T10:24:33.000Z">
+<meta property="og:description" content="正则表达式与自动机正则表达式1.常用符号
+/[]/ : 用来匹配任意的字符
+/[-]/ : 中的-用来表示字符的范围
+/[^]/ : 中的^用来表示匹配除去某模式的串（仅当^在左括号[的第一个出现时才能当作除去匹配的作用）
+/?/ question-mark: 匹配零个或一个前面的字符，意思是?前面的那个字符是可选的（即可要可不要）
+// 星号模式：用来匹配零个或多个前面的字符。当字符直邮一个时。">
+<meta property="og:updated_time" content="2017-09-21T03:14:35.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="每个人择食而亡">
-<meta name="twitter:description" content="“生活以线路／织一张网／每个人择食而亡”                                           ——— 陈鸿宇 《来信》
-
-最初听到这句歌词时，我脑海中就浮现了《没有人知道的大冒险》游戏中的西西弗斯推巨石的场景。永无休止地毫无意义的劳作，和耳旁呼啸而过的山谷的风声，西西弗斯却自认为发现了意义，他觉得自己是幸福的。
-这个故事出自加缪的The Myth of Sisyp">
+<meta name="twitter:title" content="计算语言学基础－读书笔记（一）词法分析">
+<meta name="twitter:description" content="正则表达式与自动机正则表达式1.常用符号
+/[]/ : 用来匹配任意的字符
+/[-]/ : 中的-用来表示字符的范围
+/[^]/ : 中的^用来表示匹配除去某模式的串（仅当^在左括号[的第一个出现时才能当作除去匹配的作用）
+/?/ question-mark: 匹配零个或一个前面的字符，意思是?前面的那个字符是可选的（即可要可不要）
+// 星号模式：用来匹配零个或多个前面的字符。当字符直邮一个时。">
 
 
 
@@ -133,13 +139,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/04/26/hello-world/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/09/21/计算语言学基础－读书笔记（一）词法分析/"/>
 
 
 
 
 
-  <title> 每个人择食而亡 | Shaw's Blog </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title> 计算语言学基础－读书笔记（一）词法分析 | Shaw's Blog </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -268,7 +274,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/26/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/21/计算语言学基础－读书笔记（一）词法分析/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zoe Shaw">
@@ -289,7 +295,7 @@
             
             
               
-                每个人择食而亡
+                计算语言学基础－读书笔记（一）词法分析
               
             
           </h1>
@@ -304,8 +310,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-26T20:08:29+08:00">
-                2017-04-26
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-21T10:20:41+08:00">
+                2017-09-21
               </time>
             
 
@@ -340,32 +346,50 @@
       
 
       
-        <blockquote>
-<p>“生活以线路／织一张网／每个人择食而亡”<br>                                           ——— 陈鸿宇 《来信》</p>
-</blockquote>
-<p>最初听到这句歌词时，我脑海中就浮现了《没有人知道的大冒险》游戏中的西西弗斯推巨石的场景。永无休止地毫无意义的劳作，和耳旁呼啸而过的山谷的风声，西西弗斯却自认为发现了意义，他觉得自己是幸福的。</p>
-<p>这个故事出自加缪的<a href="https://zh.wikipedia.org/wiki/%E8%A5%BF%E7%BB%AA%E5%BC%97%E6%96%AF%E7%A5%9E%E8%AF%9D" target="_blank" rel="external">The Myth of Sisyphus</a>，在这个短篇中，加缪提出了著名的“荒诞主义”哲学：上帝既不存在，世界也没有意义。</p>
-<p>即使很让人失望，我们也不得不承认，整个宇宙就是个盲目而没有意义的过程，充满了各种杂音。我们只是暂时居住在一隅的过客，存在不过很短一段时间。但是如果你对别人说：人生是毫无意义的！别人肯定会觉得你很悲观消极，然后就会列出很多有意义的事，劝你看开点，人生还是很精彩的。是的，人类并不能接受没有意义这个设定，宁愿相信我们做的事都是有着非凡的意义。作出详细周密的计划，列出大大小小的目标，也为我们未来做着各种准备。也许我们毫无选择，但事实就是如此，我们确实只能这么做，但终究说来，这一些都毫无意义。</p>
-<p>所以加缪认为，人生就像西西弗斯推巨石一样，是一场毫无意义的过程，没有用处，也不会成功，根本就无所谓成功可言。</p>
-<p>然而，虽然本质上是如此，现实中确很少有人相信这样的真理。因为人类是聪明的，他们会自己创造“意义的网”。</p>
-<p>我曾经以为，人类和动物的区别，当然是人类能主动思考的能力，自由意志之类，动物却没有任何思维。但是，最近这个观点被很多实验事实打破，比如2012年的<a href="http://fcmconference.org/img/CambridgeDeclarationOnConsciousness.pdf" target="_blank" rel="external">剑桥意识宣言</a>中提到动物也具有构成意识的神经系统。那么人类之所以能成为万物之主，原因究竟是什么呢？</p>
-<p>在尤瓦尔·赫拉利的<a href="https://book.douban.com/subject/26943161/" target="_blank" rel="external">未来简史</a>中提出（强烈安利这本书，另外最近还在读《人类简史》，同样安利），人类能够区别于大猩猩统治地球，是因为人类能够大规模合作。并且是可以和无数陌生的个体灵活高效地合作。人类中最聪明、最具有领导能力的那个人就想，怎么才能更高效第合作呢？我们得制定规则、制度啊。这样一来，便编造出了一张意义的网：国家、公司、金钱、法律……我们更希望自己的生命有客观意义，希望自己的牺牲并不是为了脑子里的空想。我可以为国家战斗至死，可以为公司业绩拼命工作，也可以单纯地追求金钱的力量，或者坚决捍卫民主的法律。领导者们当然也需要民众相信这样的意义，这样社会才能更稳定和谐，更高效地发展。</p>
-<p>所以，当人类编造出共同的“故事网”时，意义便诞生了。对我来说，并不会care在教堂结婚、斋戒月禁食和选举投票，但是在地球上另一些地方的人们，正是靠这些，才得以生生不息，繁荣生长。他们共同相信这些美好的意义，正如你不会对一个虔诚的基督教徒说：上帝已死。</p>
-<p>原来，大多数人生活的意义，都只存在于彼此的叙述当中。</p>
-<p>说了这么多，人生还不是毫无意义的？人生是荒谬的。那么，我们该跟到绝望，悲观吗？不，加缪说，认识到人生的荒谬性，就认识到了自由。</p>
-<p>他认为，正是这样的荒谬性，正是这样的毫无意义，才让一切的所有都变得无所谓，我们具有了反抗这种荒谬性的自由。尽管这种反抗没有希望，但没有希望并不等于绝望，没有什么好在意的也就是没有什么好失去的。这个观点有几分超脱的味道：我坦然接受了人生的荒谬，但我有反抗这种荒谬的自由，尽管这反抗也注定失败，但这都是我自己的事，“我的命运属于我自己”。在没有上帝的世界里，不存在任何计划，除非我自己打造一个。</p>
-<p>人要当自己的主宰者，要充分享受自己的一切面貌，积极把此刻过的更好。这让加缪觉得是幸福的。就像西西弗斯一样，在荒谬中发现了幸福。</p>
-<p>这个观点至少是能给人带来一些慰藉了，但是，现代社会发展到今天，加缪没有想到的是，自由意志的神话也将被打破，你认为你自己主宰了自己的命运，也只是让你“以为”的“以为”。</p>
-<p>《思考，快与慢》的作者丹尼尔·卡尼曼做过一个关于峰终定律的<a href="http://www.jianshu.com/p/16cfcd39be7b" target="_blank" rel="external">实验</a>：</p>
-<blockquote>
-<p>每个实验对象被告知该实验共有三个阶段。阶段1，实验对象将手伸入到14℃的冷水中60秒，此时人体感觉痛苦，但并非无法忍受； 阶段2，前60秒和阶段1一致，但在后30秒中，研究者打开温水阀门使水温升高1度左右，此时人体恰好能感觉到疼痛轻微降低。每个阶段间隔7分钟。阶段3，实验对象被要求从60秒短冷水实验或90秒长冷水实验中选择一项，再进行一次实验。</p>
-</blockquote>
-<p>实验对象在长冷水实验前60秒体验了和短冷水实验同样强度同等时间的痛苦，并且还需在30秒感受稍弱的疼痛感。实验结果显示80%的人选择了长实验感觉更好。<br>这个实验说明了人体有两个自我：体验自我（experiencing self）和叙事自我（narrating self 也叫 remembering self)，相关<a href="https://www.ted.com/talks/daniel_kahneman_the_riddle_of_experience_vs_memory" target="_blank" rel="external">ted介绍</a>。</p>
-<p>生活中大多数关键抉择，都是由叙事自我决定的。尤瓦尔·赫拉利就认为，“自我”也如同国家、公司、金钱一样，都是虚构的事物：每个人都是一个复杂的系统，正如峰终定律一样，会将大部分的体验都抛弃，而去选择我们宁愿相信的那部分“自我”，告诉我们自己是谁、从哪里来、该到哪里去。当然这个虚构不是别人设定的，正是你自己无形中给自己设定的。</p>
-<p>所以连“自我”都不存在，何来的自由选择自己的命运呢？究竟是什么在设定这这一切呢？</p>
-<p>尤瓦尔·赫拉利的书中说到，人就是生物算法的集合，根本就不存在自由意志，我们平时所说的自由选择，可能是生物预设，也可能是各种生物算法的随机组合，但绝不是自由意志。人的欲望不是一种“选择”，而是我们感觉到了欲望，再据以行事。所以，有时候我们会感觉到算法似乎比我们更了解我们，比如安吉丽娜·朱莉做基因检测，最后发现了乳腺癌风险。再比如互联网的推荐系统，现在很多做得还不尽人意，但在可预想的未来，公投日那天，在你决定你想投哪个选举人之前，算法都已经根据你以往面对选举人时各种情感表现，以及你的认知心理更偏向的政党，早早就已经帮你做下了决定。</p>
-<p>人类总是说不要被算法支配，但是人类本身就是算法的集合啊。</p>
-<p>最后，说了这么多废话，每个人依然会各自择食而亡。</p>
+        <h1 id="正则表达式与自动机"><a href="#正则表达式与自动机" class="headerlink" title="正则表达式与自动机"></a>正则表达式与自动机</h1><h2 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h2><h3 id="1-常用符号"><a href="#1-常用符号" class="headerlink" title="1.常用符号"></a>1.常用符号</h3><ul>
+<li>/[]/ : 用来匹配任意的字符</li>
+<li>/[-]/ : 中的-用来表示字符的范围</li>
+<li>/[^]/ : 中的^用来表示匹配除去某模式的串（仅当^在左括号[的第一个出现时才能当作除去匹配的作用）</li>
+<li>/?/ question-mark: 匹配零个或一个前面的字符，意思是?前面的那个字符是可选的（即可要可不要）</li>
+<li>/<em>/ 星号模式：用来匹配零个或多个前面的字符。当字符直邮一个时。比如a</em>，还可以匹配完全不包含a的仁义字符串的起始处，所以当要匹配一个或多个a是，应该用aa<em>；ab</em>表示可以匹配一个或多个a或b</li>
+<li>/+/ 加号模式：匹配一个或多个前面的字符；与？和*的区别是+不会匹配零个</li>
+<li><p>/./ 句点模式：匹配任意的字符。和<em>组合表示匹配任意的字符串 /ab.</em>ab/</p>
+<p><strong><em>anchors</em></strong>：<br>anchors是特殊的字符串来匹配字符串中的特定模式</p>
+</li>
+<li><p>/^$/ : ^表示在行的开始处进行匹配，$表示在行的末尾处进行匹配</p>
+</li>
+<li>/\b/ : 用来匹配单词边界，它通常用来避免意外地匹配到在其他单词内的某个单词. ；/\B/ : 用来匹配非单词边界</li>
+</ul>
+<h3 id="2-disjunction-grouping-and-precedence"><a href="#2-disjunction-grouping-and-precedence" class="headerlink" title="2.disjunction,grouping and precedence"></a>2.disjunction,grouping and precedence</h3><ul>
+<li>/cat|dog/: 使用｜来表示匹配左边的模式或者右边的模式</li>
+<li>/()/ : 使用()来确定求值的顺序</li>
+</ul>
+<h3 id="3-表达式优先级："><a href="#3-表达式优先级：" class="headerlink" title="3.表达式优先级："></a>3.表达式优先级：</h3><p>() &gt; +?{} &gt; ^$ &gt; |</p>
+<h3 id="4-高级操作"><a href="#4-高级操作" class="headerlink" title="4.高级操作"></a>4.高级操作</h3><ul>
+<li>\d : [0–9]</li>
+<li>\D : [^0-9]</li>
+<li>\w : [a-zA-Z0-9_]</li>
+<li>\W : [^\w]</li>
+<li>\s : [\r\t\n\f]</li>
+<li>\S : [^\s]</li>
+</ul>
+<h2 id="自动机"><a href="#自动机" class="headerlink" title="自动机"></a>自动机</h2><h3 id="1-概念"><a href="#1-概念" class="headerlink" title="1.概念"></a>1.概念</h3><p><strong><em>确定性有限自动机 DFSA</em></strong>:</p>
+<ul>
+<li>有限状态集合S；</li>
+<li>有限输入符号的字母表Σ；</li>
+<li>状态转移函数move；</li>
+<li>开始状态 s0；</li>
+<li>结束状态集合F，F ∈ S。 自动机初始状态为s0，逐一读入输入字符串中的每一个字母，根据当前状态、读入的字母， 由状态转移函数move控制进入下一个状态。如果输入字符串读入结束时自动机的状态属于结束状态集合F， 则说明该自动机接受该字符串，否则为不接受。</li>
+</ul>
+<p><strong><em>不确定性有限自动机 NFSA</em></strong>: 存在空的输入或者每个状态的转移存在多种路径</p>
+<h3 id="2-算法"><a href="#2-算法" class="headerlink" title="2.算法"></a>2.算法</h3><p>不确定性FSA的解决方法：</p>
+<ul>
+<li>Backup</li>
+<li>Look-ahead</li>
+<li>Parallelism</li>
+</ul>
+<p>Backup方法：NFSA算法：</p>
+<p>状态空间搜索算法：就是将所有可能进行转移的状态存下来，选择一条路径结果reject时就回溯回分叉路口来选取另一条路径。使得搜索的状态有序，可以使用深搜或宽搜算法。但是这两种算法都有弊端：当状态空间无尽时搜索就不会停止，而且当状态空间很你很大时，会耗费大量的存储空间。更复杂高效的算法可以使用动态规划或者A*算法。</p>
 
       
     </div>
@@ -395,7 +419,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/life/" rel="tag"># 随笔</a>
+            <a href="/tags/NLP/" rel="tag"># 自然语言处理</a>
           
         </div>
       
@@ -408,15 +432,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/09/16/特征编码之Likelihood-Encoding/" rel="next" title="特征编码之Likelihood Encoding">
+                <i class="fa fa-chevron-left"></i> 特征编码之Likelihood Encoding
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/07/06/机器学习算法之集成学习boosting/" rel="prev" title="机器学习算法之集成学习boosting">
-                机器学习算法之集成学习boosting <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -463,8 +487,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -537,6 +570,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#正则表达式与自动机"><span class="nav-number">1.</span> <span class="nav-text">正则表达式与自动机</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#正则表达式"><span class="nav-number">1.1.</span> <span class="nav-text">正则表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-常用符号"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.常用符号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-disjunction-grouping-and-precedence"><span class="nav-number">1.1.2.</span> <span class="nav-text">2.disjunction,grouping and precedence</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-表达式优先级："><span class="nav-number">1.1.3.</span> <span class="nav-text">3.表达式优先级：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-高级操作"><span class="nav-number">1.1.4.</span> <span class="nav-text">4.高级操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自动机"><span class="nav-number">1.2.</span> <span class="nav-text">自动机</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-概念"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-算法"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.算法</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
