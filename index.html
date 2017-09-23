@@ -260,6 +260,144 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/23/Binary-Search类型问题解题模版/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zoe Shaw">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shaw's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/09/23/Binary-Search类型问题解题模版/" itemprop="url">
+                  Binary Search类型问题解题模版
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-23T20:52:24+08:00">
+                2017-09-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>对于需要找某元素首次/末次出现的位置？first position, last position</p>
+<h2 id="1-需要注意的点："><a href="#1-需要注意的点：" class="headerlink" title="1.需要注意的点："></a>1.需要注意的点：</h2><ul>
+<li>循环结束的条件：start + 1 &lt; end : 当循环进行到数组里只有两个数时，即当start与end相邻时。里面就不用加1和减1</li>
+<li>使用 mid = start + (end - start) / 2 而不是 mid = (start + end) / 2，因为后者可能会导致溢出（细节）</li>
+<li>然后比较A[mid] == , &lt;, &gt; : 如果是要找last position, 当A[mid] == target时，执行start = mid，而不是直接返回;如果找first position ，则要执行end = mid,且后面判断的时候先判断A[start]</li>
+<li>结束循环最后还需比较A[start]和A[end]哪个是target，如果需要的是找最后一个出现的target，则需要先判断A[end];如果需要找第一个出现的target，则首先需要判断A[start]是不是target</li>
+</ul>
+<p>====&gt;&gt; 任何二分法的问题都可以归为找first position和last position</p>
+<h2 id="2-看到O-logn-复杂度，一般考虑用二分法"><a href="#2-看到O-logn-复杂度，一般考虑用二分法" class="headerlink" title="2.看到O(logn)复杂度，一般考虑用二分法"></a>2.看到O(logn)复杂度，一般考虑用二分法</h2><ul>
+<li>如果问题用O(n)可以解决，但是面试官不满意，则要找O(logn)的方法</li>
+</ul>
+<h2 id="3-旋转数组的问题：-旋转数组的特点：有两个上升区间-画图），特殊情况一个上升区间）"><a href="#3-旋转数组的问题：-旋转数组的特点：有两个上升区间-画图），特殊情况一个上升区间）" class="headerlink" title="3.旋转数组的问题：(旋转数组的特点：有两个上升区间(画图），特殊情况一个上升区间）"></a>3.旋转数组的问题：(旋转数组的特点：有两个上升区间(画图），特殊情况一个上升区间）</h2><ul>
+<li>没有重复元素时：可以用二分法 : 怎样划分区间 （二分法实质上是对区间的划分，每次去掉一部分空间）</li>
+<li>有重复元素：不能用二分法，因为有重复元素时实现的复杂度最坏就是O(n)，证明：黑盒测试＝&gt; 假设前n-1次取出来的都是相同的，则不能得到任何有用的信息，第n次取到了最小的，才能知道最小的元素的位置。所以存在重复元素时的时间复杂度最小都是o(n)，即不存在o(logn)的解法。</li>
+</ul>
+<p>eg: 如题目：search in sorted array</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">    public int search(int[] nums, int target) &#123;</div><div class="line">        if (nums == null || nums.length == 0) &#123;</div><div class="line">            return -1;</div><div class="line">        &#125;</div><div class="line">        int start = 0, end = nums.length - 1;</div><div class="line">        int mid;</div><div class="line">        while (start + 1 &gt; end) &#123;</div><div class="line">            mid = start + (end - start) / 2;</div><div class="line">            if (nums[mid] == target) &#123;</div><div class="line">                return mid;</div><div class="line">            &#125; else if (nums[mid] &gt; nums[start]) &#123;</div><div class="line">                if (target &gt;= nums[start] &amp;&amp; target &lt;= nums[mid]) &#123;</div><div class="line">                    end = mid;</div><div class="line">                &#125; else &#123;</div><div class="line">                    start = mid;</div><div class="line">                &#125;</div><div class="line">            &#125; else &#123;</div><div class="line">                if (target &gt;= nums[mid] &amp;&amp; target &lt;= nums[end]) &#123;</div><div class="line">                    start = mid;</div><div class="line">                &#125; else &#123;</div><div class="line">                    end = mid;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        if (nums[start] == target) &#123;</div><div class="line">            return start;</div><div class="line">        &#125; else if (nums[end] == target) &#123;</div><div class="line">            return end;</div><div class="line">        &#125;</div><div class="line">        return -1;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="" alt=""></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/21/计算语言学基础－读书笔记（一）词法分析/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -382,8 +520,28 @@
 <p>Backup方法：NFSA算法：</p>
 <p>状态空间搜索算法：就是将所有可能进行转移的状态存下来，选择一条路径结果reject时就回溯回分叉路口来选取另一条路径。使得搜索的状态有序，可以使用深搜或宽搜算法。但是这两种算法都有弊端：当状态空间无尽时搜索就不会停止，而且当状态空间很你很大时，会耗费大量的存储空间。更复杂高效的算法可以使用动态规划或者A*算法。<br><img src="https://github.com/ZoeShaw101/ZoeShaw101.github.io/blob/master/images/Snip20170921_1.png" alt=""></p>
 <h2 id="使用正则表达式建立自动机"><a href="#使用正则表达式建立自动机" class="headerlink" title="使用正则表达式建立自动机"></a>使用正则表达式建立自动机</h2><p>RE描述了一个定义在某个字母表Σ上的字符串集合L,并且空字符串ε也属于L集合.RE有三个基本的操作:<br>(1)选择 取并集.符号:|. 比如两个字符串集合R和S的选择操作,记作R|S.<br>(2)连接 字符串之间的拼接.两个字符串集合R和S的连接为RS.<br>(3)闭包 符号:<em> 字符串集合R的闭包R</em>是指把R与自身连接零次或者多次形成的所有集合的并集.<br>  由这几个简单的操作可以得到我们平常接触的正则表达式的所有扩展.</p>
-<p>如下图所示的几种转化：<br><img src="http://www.jianshu.com/p/19bb92f853cf" alt=""><br><img src="http://www.jianshu.com/p/19bb92f853cf" alt=""><br><img src="http://www.jianshu.com/p/19bb92f853cf" alt=""><br><img src="http://www.jianshu.com/p/19bb92f853cf" alt=""><br><img src="http://www.jianshu.com/p/19bb92f853cf" alt=""></p>
+<p>如下图所示的几种转化：<br><img src="http://upload-images.jianshu.io/upload_images/1162126-0480536300e48f30.png?imageMogr2/auto-orient/strip%7CimageView2/2" alt=""><br><img src="http://upload-images.jianshu.io/upload_images/1162126-d159781539f2f376.png?imageMogr2/auto-orient/strip%7CimageView2/2" alt=""><br><img src="http://upload-images.jianshu.io/upload_images/1162126-1bb14ddbfd011292.png?imageMogr2/auto-orient/strip%7CimageView2/2" alt=""><br><img src="http://upload-images.jianshu.io/upload_images/1162126-3e160b39aebd8d00.png?imageMogr2/auto-orient/strip%7CimageView2/2" alt=""><br><img src="http://upload-images.jianshu.io/upload_images/1162126-d43e56fcb311b467.png?imageMogr2/auto-orient/strip%7CimageView2/2" alt=""></p>
 <p>只要有了这三个RE基本操作的NFA,我们就能对任何组合得来的RE求出对应的NFA.</p>
+<h2 id="词汇的词汇层分析："><a href="#词汇的词汇层分析：" class="headerlink" title="词汇的词汇层分析："></a>词汇的词汇层分析：</h2><ul>
+<li>断词</li>
+<li>形态分析</li>
+</ul>
+<p>不同语种任务不一样</p>
+<p>ex：英语<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">1.使用有限自动机进行英语的tokenization</div><div class="line">2.评价指标: F1指标：召回率和准确率的权衡 F1 = 2 * (precision * recall) / (precision + recall)</div></pre></td></tr></table></figure></p>
+<p>英语形态分析 : 表层 =&gt; 词汇层，词汇层 =&gt; 表层<br>词形态分析需要的三个知识：</p>
+<ul>
+<li>lexicon： 词根list、词缀list</li>
+<li>配列法规则：加词缀的次序</li>
+<li>正字法规则：加词缀怎么表示 （如复数直接加s还是改y为i加es）</li>
+</ul>
+<p>表层 =&gt; 正字法规则 =&gt; 配列法规则 =&gt; 词汇层 （反过来顺序倒过来）</p>
+<h2 id="算法模型设计"><a href="#算法模型设计" class="headerlink" title="算法模型设计"></a>算法模型设计</h2><p>1.词表（stem list, prefix list)词根表，词缀表可以使用 FSA 有限自动机来表示<br>2.配列规则、正字法规则 ： 应该使用 FST （因为规则需要由一个符号串输出另一个符号串，而不是FSA那样输出是否的判定）</p>
+<p>FST: 串到串的映射</p>
+<p>eg: fox + N + PL 通过一个实现配列规则的 FST生成fox^s#<br>    fox^s# 再通过一个实现正字法规则FST生成foxes# =&gt; 两个FST进行拼接就可以了</p>
+<ul>
+<li>最小编辑距离：动态规划求解（全局最优的局部一定是局部最优）左下到右上的递推过程<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dis[i][j] = min(min(dis[i-1][j] + ins(t[i]), dis[i-i][j-1] + sub(s[j]+t[i]), dis[i][j-1] + del(s[j])</div></pre></td></tr></table></figure>
+</li>
+</ul>
 <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
 <li><a href="https://book.douban.com/subject/2403834/" target="_blank" rel="external">Speech and Language Processing</a></li>
 </ul>
@@ -1186,7 +1344,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1199,7 +1357,7 @@
             
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">tags</span>
               
             </div>
