@@ -99,13 +99,15 @@
 1.需要注意的点：
 循环结束的条件：start + 1 &amp;lt; end : 当循环进行到数组里只有两个数时，即当start与end相邻时。里面就不用加1和减1
 使用 mid = start + (end - start) / 2 而不是 mid = (start + end) / 2，因为后者可能会">
-<meta property="og:updated_time" content="2017-09-23T12:58:25.000Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/ZoeShaw101/ZoeShaw101.github.io/master/images/Snip20170916_10.png">
+<meta property="og:updated_time" content="2017-09-23T13:03:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Binary Search类型问题解题模版">
 <meta name="twitter:description" content="对于需要找某元素首次/末次出现的位置？first position, last position
 1.需要注意的点：
 循环结束的条件：start + 1 &amp;lt; end : 当循环进行到数组里只有两个数时，即当start与end相邻时。里面就不用加1和减1
 使用 mid = start + (end - start) / 2 而不是 mid = (start + end) / 2，因为后者可能会">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/ZoeShaw101/ZoeShaw101.github.io/master/images/Snip20170916_10.png">
 
 
 
@@ -357,7 +359,7 @@
 </ul>
 <p>eg: 如题目：search in sorted array</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">    public int search(int[] nums, int target) &#123;</div><div class="line">        if (nums == null || nums.length == 0) &#123;</div><div class="line">            return -1;</div><div class="line">        &#125;</div><div class="line">        int start = 0, end = nums.length - 1;</div><div class="line">        int mid;</div><div class="line">        while (start + 1 &gt; end) &#123;</div><div class="line">            mid = start + (end - start) / 2;</div><div class="line">            if (nums[mid] == target) &#123;</div><div class="line">                return mid;</div><div class="line">            &#125; else if (nums[mid] &gt; nums[start]) &#123;</div><div class="line">                if (target &gt;= nums[start] &amp;&amp; target &lt;= nums[mid]) &#123;</div><div class="line">                    end = mid;</div><div class="line">                &#125; else &#123;</div><div class="line">                    start = mid;</div><div class="line">                &#125;</div><div class="line">            &#125; else &#123;</div><div class="line">                if (target &gt;= nums[mid] &amp;&amp; target &lt;= nums[end]) &#123;</div><div class="line">                    start = mid;</div><div class="line">                &#125; else &#123;</div><div class="line">                    end = mid;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        if (nums[start] == target) &#123;</div><div class="line">            return start;</div><div class="line">        &#125; else if (nums[end] == target) &#123;</div><div class="line">            return end;</div><div class="line">        &#125;</div><div class="line">        return -1;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><img src="" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/ZoeShaw101/ZoeShaw101.github.io/master/images/Snip20170916_10.png" alt=""></p>
 
       
     </div>

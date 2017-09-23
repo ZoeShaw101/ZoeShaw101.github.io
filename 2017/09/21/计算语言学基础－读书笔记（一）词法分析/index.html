@@ -103,13 +103,13 @@
 /[^]/ : 中的^用来表示匹配除去某模式的串（仅当^在左括号[的第一个出现时才能当作除去匹配的作用）
 /?/ question-mark: 匹配零个或一个前面的字符，意思是?前面的那个字符是可选的（即可要可不要）
 // 星号模式：用来匹配零个或多个前面的字符。当字符直邮一个时。">
-<meta property="og:image" content="https://github.com/ZoeShaw101/ZoeShaw101.github.io/blob/master/images/Snip20170921_1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ZoeShaw101/ZoeShaw101.github.io/master/images/Snip20170921_1.png">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1162126-0480536300e48f30.png?imageMogr2/auto-orient/strip%7CimageView2/2">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1162126-d159781539f2f376.png?imageMogr2/auto-orient/strip%7CimageView2/2">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1162126-1bb14ddbfd011292.png?imageMogr2/auto-orient/strip%7CimageView2/2">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1162126-3e160b39aebd8d00.png?imageMogr2/auto-orient/strip%7CimageView2/2">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1162126-d43e56fcb311b467.png?imageMogr2/auto-orient/strip%7CimageView2/2">
-<meta property="og:updated_time" content="2017-09-23T12:51:38.000Z">
+<meta property="og:updated_time" content="2017-09-23T13:04:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="计算语言学基础－读书笔记（一）词法分析">
 <meta name="twitter:description" content="正则表达式与自动机正则表达式1.常用符号
@@ -118,7 +118,7 @@
 /[^]/ : 中的^用来表示匹配除去某模式的串（仅当^在左括号[的第一个出现时才能当作除去匹配的作用）
 /?/ question-mark: 匹配零个或一个前面的字符，意思是?前面的那个字符是可选的（即可要可不要）
 // 星号模式：用来匹配零个或多个前面的字符。当字符直邮一个时。">
-<meta name="twitter:image" content="https://github.com/ZoeShaw101/ZoeShaw101.github.io/blob/master/images/Snip20170921_1.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/ZoeShaw101/ZoeShaw101.github.io/master/images/Snip20170921_1.png">
 
 
 
@@ -396,7 +396,7 @@
 <li>Parallelism</li>
 </ul>
 <p>Backup方法：NFSA算法：</p>
-<p>状态空间搜索算法：就是将所有可能进行转移的状态存下来，选择一条路径结果reject时就回溯回分叉路口来选取另一条路径。使得搜索的状态有序，可以使用深搜或宽搜算法。但是这两种算法都有弊端：当状态空间无尽时搜索就不会停止，而且当状态空间很你很大时，会耗费大量的存储空间。更复杂高效的算法可以使用动态规划或者A*算法。<br><img src="https://github.com/ZoeShaw101/ZoeShaw101.github.io/blob/master/images/Snip20170921_1.png" alt=""></p>
+<p>状态空间搜索算法：就是将所有可能进行转移的状态存下来，选择一条路径结果reject时就回溯回分叉路口来选取另一条路径。使得搜索的状态有序，可以使用深搜或宽搜算法。但是这两种算法都有弊端：当状态空间无尽时搜索就不会停止，而且当状态空间很你很大时，会耗费大量的存储空间。更复杂高效的算法可以使用动态规划或者A*算法。<br><img src="https://raw.githubusercontent.com/ZoeShaw101/ZoeShaw101.github.io/master/images/Snip20170921_1.png" alt=""></p>
 <h2 id="使用正则表达式建立自动机"><a href="#使用正则表达式建立自动机" class="headerlink" title="使用正则表达式建立自动机"></a>使用正则表达式建立自动机</h2><p>RE描述了一个定义在某个字母表Σ上的字符串集合L,并且空字符串ε也属于L集合.RE有三个基本的操作:<br>(1)选择 取并集.符号:|. 比如两个字符串集合R和S的选择操作,记作R|S.<br>(2)连接 字符串之间的拼接.两个字符串集合R和S的连接为RS.<br>(3)闭包 符号:<em> 字符串集合R的闭包R</em>是指把R与自身连接零次或者多次形成的所有集合的并集.<br>  由这几个简单的操作可以得到我们平常接触的正则表达式的所有扩展.</p>
 <p>如下图所示的几种转化：<br><img src="http://upload-images.jianshu.io/upload_images/1162126-0480536300e48f30.png?imageMogr2/auto-orient/strip%7CimageView2/2" alt=""><br><img src="http://upload-images.jianshu.io/upload_images/1162126-d159781539f2f376.png?imageMogr2/auto-orient/strip%7CimageView2/2" alt=""><br><img src="http://upload-images.jianshu.io/upload_images/1162126-1bb14ddbfd011292.png?imageMogr2/auto-orient/strip%7CimageView2/2" alt=""><br><img src="http://upload-images.jianshu.io/upload_images/1162126-3e160b39aebd8d00.png?imageMogr2/auto-orient/strip%7CimageView2/2" alt=""><br><img src="http://upload-images.jianshu.io/upload_images/1162126-d43e56fcb311b467.png?imageMogr2/auto-orient/strip%7CimageView2/2" alt=""></p>
 <p>只要有了这三个RE基本操作的NFA,我们就能对任何组合得来的RE求出对应的NFA.</p>
