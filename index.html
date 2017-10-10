@@ -260,6 +260,152 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/10/Java基础（一）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zoe Shaw">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shaw's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/10/10/Java基础（一）/" itemprop="url">
+                  Java基础（一）
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-10T09:06:50+08:00">
+                2017-10-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li><p>1.名字可见性：java中不允许全局变量和全局函数的存在，但是不同的人在自己写的模块中写的函数名仍然可能会相同，解决这额问题就是会使用包名：比如可以使用自己的域名的反转来命名包名：net.zoeshaw.util.text</p>
+</li>
+<li><p>2.static关键字：<br>使用new对象才分配了内存，但是有时候希望可以不创建这个类，但是使用类中的方法。就是不需要去思考究竟需要创建多少类就可以一为特定的某个方法分配单一存储空间。<br>当命名一个事物是static时，它就不会与包含它的那个类的对象实例关联在一起。所以不需要创建那个类的对象，就可以调用static方法。不管你创建了这个类的多少个对象，这些static变量都只占用同一份存储空间。<br>引用方法可以通过对象名.method()或类名.method()</p>
+</li>
+<li><p>3.this 关键字<br>this表示“调用方法的那个对象”的引用<br>用处：可以将当前类的对象的引用传递给另一个类中的方法。</p>
+</li>
+</ul>
+<p>注意：在一个方法中引用同一个类的另一个方法不必用this，直接调用即可。</p>
+<ul>
+<li>3.对象存储在哪里？<br>堆栈：位于RAM，堆栈指针的存在使得分配内存很容易进行，但是java系统必须知道存储在堆栈中的所有对象的生命周期以便移动指针，但是这缺乏灵活性，所以往往java对象不存储在堆栈里。</li>
+</ul>
+<p>堆：一种通用的内存池（也位于RAM中）。new出一个对象时可以自动在堆中进行存储分配，并结合java的垃圾回收机制，编译器不足要知道存储的数据在堆中存活时间多长，就能够灵活地进行内存分配与回收。</p>
+<ul>
+<li><p>4.接口与抽象类</p>
+</li>
+<li><p>接口相当于一种契约：接口时完全抽象的，不存在接口的实现；实现了接口的类必须实现接口的所有方法；</p>
+</li>
+<li>抽象类：抽象类用于捕捉子类的通用方法，不能被实例化。可以有默认的方法实现。</li>
+</ul>
+<p><strong><em>什么时候使用抽象类和接口</em></strong></p>
+<ul>
+<li>如果你拥有一些方法并且想让它们中的一些有默认实现，那么使用抽象类。</li>
+<li>如果你想实现多重继承，那么你必须使用接口。由于Java不支持多继承，子类不能够继承多个类，但可以实现多个接口。因此你就可以使用接口来解决它。</li>
+<li>如果基本功能在不断改变，那么就需要使用抽象类。如果不断改变基本功能并且使用接口，那么就需要改变所有实现了该接口的类。</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/28/记一次面试经历/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1611,7 +1757,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
