@@ -5,16 +5,19 @@
   
   <title>NLP-Word2Vec原理及实现 | Shaw&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Every hero has a code.">
+  <meta name="description" content="#统计语言模型统计语言模型就是计算一个句子的概率的概率模型。那么什么是一个句子的概率呢？就是语料库中出现这个句子的概率。如果每个单词的出现看作是独立事件，则一个完整的句子的出现就可以表示成概率的形式，再利用概率的链式分解。这种模型的问题在于模型参数的个数太多。假设语料库中词典的大小为，那么一维参数有个，二维参数有个，三维有个，维有个参数。如果要计算任意长度为的句子的概率，理论上就需要个参数。即使能">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NLP-Word2Vec原理及实现">
 <meta property="og:url" content="http://yoursite.com/2017/10/20/NLP-Word2Vec原理及实现/index.html">
 <meta property="og:site_name" content="Shaw's Blog">
-<meta property="og:description" content="Every hero has a code.">
-<meta property="og:updated_time" content="2017-10-20T02:08:57.000Z">
+<meta property="og:description" content="#统计语言模型统计语言模型就是计算一个句子的概率的概率模型。那么什么是一个句子的概率呢？就是语料库中出现这个句子的概率。如果每个单词的出现看作是独立事件，则一个完整的句子的出现就可以表示成概率的形式，再利用概率的链式分解。这种模型的问题在于模型参数的个数太多。假设语料库中词典的大小为，那么一维参数有个，二维参数有个，三维有个，维有个参数。如果要计算任意长度为的句子的概率，理论上就需要个参数。即使能">
+<meta property="og:image" content="https://raw.githubusercontent.com/ZoeShaw101/NLP_tasks/master/Word2Vec_CBOW/docs/C720E60D-CE41-419D-859F-C87672E8CF17.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ZoeShaw101/NLP_tasks/master/Word2Vec_CBOW/docs/tsne_embeddings.png">
+<meta property="og:updated_time" content="2017-10-20T17:31:19.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NLP-Word2Vec原理及实现">
-<meta name="twitter:description" content="Every hero has a code.">
+<meta name="twitter:description" content="#统计语言模型统计语言模型就是计算一个句子的概率的概率模型。那么什么是一个句子的概率呢？就是语料库中出现这个句子的概率。如果每个单词的出现看作是独立事件，则一个完整的句子的出现就可以表示成概率的形式，再利用概率的链式分解。这种模型的问题在于模型参数的个数太多。假设语料库中词典的大小为，那么一维参数有个，二维参数有个，三维有个，维有个参数。如果要计算任意长度为的句子的概率，理论上就需要个参数。即使能">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/ZoeShaw101/NLP_tasks/master/Word2Vec_CBOW/docs/C720E60D-CE41-419D-859F-C87672E8CF17.png">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -58,7 +61,42 @@
     
     <div class="article-entry typo" itemprop="articleBody">
       
-        
+        <p>#统计语言模型<br>统计语言模型就是计算一个句子的概率的概率模型。那么什么是一个句子的概率呢？就是语料库中出现这个句子的概率。<br>如果每个单词的出现看作是独立事件，则一个完整的句子的出现就可以表示成概率的形式，再利用概率的链式分解。<br>这种模型的问题在于模型参数的个数太多。假设语料库中词典的大小为，那么一维参数有个，二维参数有个，三维有个，维有个参数。如果要计算任意长度为的句子的概率，理论上就需要个参数。即使能计算出来，存储这些参数也需要很大的内存开销。</p>
+<p>#词表示</p>
+<ul>
+<li>one－hot</li>
+<li>distributional：利用上下文来表示一个词。连续上下文的窗口k。<ol>
+<li>布尔式</li>
+<li>频率式<br>=&gt;向量维度＝词表维度，维度会很高，需要降维。</li>
+</ol>
+</li>
+<li>distributed：维度不定。但是小于词表维度。</li>
+</ul>
+<p>#神经语言概率模型</p>
+<ol>
+<li>利用m个神经元的组合（x1,x2…xm）来编码词</li>
+<li>模型结构：</li>
+</ol>
+<ul>
+<li>词表映射：|V| * m维矩阵</li>
+<li>在没有训练数据的情况下怎么构造目标函数，将衡量语言模型好坏的PP值作为目标函数（迷惑度/困惑度/混乱度（preplexity），其基本思想是给测试集赋予较高概率值的语言模型较好）</li>
+</ul>
+<ol>
+<li>即将词表中的词语  表示为一个固定长度为 MM 向量的形式,（m 为人工定义的词向量的长度），这样整个词表可以用一个矩阵表示，每一列为一个词向量，现在找到词 wtwt 的上下文 context(wt)context(wt) , 这里 Bengio 设定的上下文 context(wt)context(wt) 是词 wtwt 的前  个词语，并把这个词语的词向量首尾相接的拼起来，形成维度为 (n−1)m(n−1)m 的向量来当做神经网络的输入，所以 NNLM 输入层的大小已经确定为 (n−1)m(n−1)m ,隐层的规模就是人工指定了，输出层的大小为 |V|，为什么是|V| 呢，因为这里类似于 supervised learning ，输入特征为 context(wt)context(wt) 对应的 (n−1)m(n−1)m 维的向量，通过 NNLM 后期望的输出应该是词语 wtwt 了，即输出类似于模型学习到的到标签的映射，因为共有 |V|个词语，所以输出层维度为 |V| ， wtwt 在词表 VV 中的下标对应的维度就是映射 wt 的得分,而 softmax 正好可以把该得分归一化为概率。</li>
+</ol>
+<p>##Word2Vec<br>word2vec是只有一个隐层的全连接神经网络, 用来预测给定单词的关联度大的单词.</p>
+<p>WI 的大小是VxN, V是单词字典的大小, 每次输入是一个单词, N是你设定的隐层大小.<br>提出的实现模型有两种：</p>
+<ul>
+<li>skip-gram: 给一个context_window的中间词，预测其余的词： 适合于数据集较大的时候</li>
+<li>contninus bag od words(CBOW)：给除去中间词的context_window， 预测中间词：适合于数据集较小的时候</li>
+</ul>
+<p>tensorflow中的实现是基于skip-gram模型，那么我们可以自己实现一个CBOW模型。</p>
+<p>###实现<br>CBOW模型的训练输入是某一个特征词的上下文相关的词对应的词向量，而输出就是这特定的一个词的词向量。由于这两个模型的区别就是取词的时候不一样，那么我们只要修改<a href="https://github.com/tensorflow/tensorflow/blob/r1.3/tensorflow/examples/tutorials/word2vec/word2vec_basic.py" target="_blank" rel="external">tensorflow原来代码</a>中的generate_batch函数即可。<br>skip_window表示取的中间词左右词的大小窗口。具体代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">def generate_batch(data, batch_size, skip_window):</div><div class="line">    &quot;&quot;&quot;</div><div class="line">    Generates a mini-batch of training data for the training CBOW</div><div class="line">    embedding model.</div><div class="line">    :param data (numpy.ndarray(dtype=int, shape=(corpus_size,)): holds the</div><div class="line">        training corpus, with words encoded as an integer</div><div class="line">    :param batch_size (int): size of the batch to generate</div><div class="line">    :param skip_window (int): number of words to both left and right that form</div><div class="line">        the context window for the target word.</div><div class="line">    Batch is a vector of shape (batch_size, 2*skip_window), with each entry for the batch containing all the context words, with the corresponding label being the word in the middle of the context</div><div class="line">    &quot;&quot;&quot;</div><div class="line">    global data_index</div><div class="line">    span = 2 * skip_window + 1  # [ skip_window target skip_window ]</div><div class="line">    batch = np.ndarray(shape=(batch_size, span - 1), dtype=np.int32)</div><div class="line">    labels = np.ndarray(shape=(batch_size, 1), dtype=np.int32)</div><div class="line">    buffer = collections.deque(maxlen=span)</div><div class="line">    if data_index + span &gt; len(data):</div><div class="line">        data_index = 0</div><div class="line"></div><div class="line">    for _ in range(span):</div><div class="line">        buffer.append(data[data_index])</div><div class="line">        data_index = (data_index + 1) % len(data)</div><div class="line"></div><div class="line">    for i in range(batch_size):</div><div class="line">        target = skip_window</div><div class="line">        target_to_avoid = [skip_window]</div><div class="line">        col_idx = 0</div><div class="line">        for j in range(span):</div><div class="line">            if j == span // 2:  ##skip the middel word</div><div class="line">                continue</div><div class="line">            batch[i, col_idx] = buffer[j]</div><div class="line">            col_idx += 1</div><div class="line">        labels[i, 0] = buffer[target]</div><div class="line">        buffer.append(data[data_index])</div><div class="line">        data_index = (data_index + 1) % len(data)</div><div class="line"></div><div class="line">    return batch, labels</div></pre></td></tr></table></figure>
+<p>完整代码请戳===&gt;<a href="https://github.com/ZoeShaw101/NLP_tasks" target="_blank" rel="external">NLP_tasks</a></p>
+<p>最后程序运行可以计算出相邻的词：<br><img src="https://raw.githubusercontent.com/ZoeShaw101/NLP_tasks/master/Word2Vec_CBOW/docs/C720E60D-CE41-419D-859F-C87672E8CF17.png" alt=""></p>
+<p>并可以绘出词之间的距离图：<br><img src="https://raw.githubusercontent.com/ZoeShaw101/NLP_tasks/master/Word2Vec_CBOW/docs/tsne_embeddings.png" alt=""></p>
+
       
     </div>
     <footer class="article-footer">
@@ -71,6 +109,14 @@
 
         </li>
         
+        
+          <li>
+            <span class="label">Tag:</span>
+            
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/">自然语言处理</a></li></ul>
+
+
+          </li>
         
         <hr/>
       </ul>
